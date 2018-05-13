@@ -1,0 +1,9 @@
+build:
+	protoc -I. --go_out=plugins=grpc:$(GOPATH)/src/github.com/efrengarcial/shipper/consignment-service \
+	  proto/consignment/consignment.proto
+
+	CGO_ENABLED=0 go build -a -installsuffix cgo
+	docker build -t consignment-service .
+
+run:
+	docker run -p 50051:50051 consignment-service
