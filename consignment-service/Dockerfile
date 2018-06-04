@@ -4,11 +4,9 @@ WORKDIR /go/src/github.com/efrengarcial/shipper/consignment-service
 
 COPY . .
 
-RUN go get -u github.com/golang/dep/cmd/dep
+RUN go get
 
-RUN dep ensure -vendor-only
-
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo main.go repository.go handler.go datastore.go
+RUN CGO_ENABLED=0 GOOS=linux go build  -o consignment-service -a -installsuffix cgo main.go repository.go handler.go datastore.go
 
 FROM alpine:latest
 

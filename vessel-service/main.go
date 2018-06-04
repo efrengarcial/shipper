@@ -39,6 +39,7 @@ func main() {
 		log.Fatalf("Error connecting to datastore: %v", err)
 	}
 
+
 	repo := &VesselRepository{session.Copy()}
 
 	createDummyData(repo)
