@@ -5,7 +5,9 @@ WORKDIR /go/src/github.com/efrengarcial/shipper/consignment-cli
 COPY . .
 
 RUN go get -u github.com/golang/dep/cmd/dep
-RUN dep init && dep ensure
+
+RUN dep ensure -vendor-only
+
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo .
 
 
