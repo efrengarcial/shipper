@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	defaultFilename = "consignment-cli/consignment.json"
+	defaultFilename = "consignment.json"
 )
 
 func parseFile(file string) (*pb.Consignment, error) {

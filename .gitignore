@@ -2,4 +2,8 @@
 
 vendor
 
+.vscode
 
+*.so
+
+*.exe
