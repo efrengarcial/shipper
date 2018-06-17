@@ -1,7 +1,7 @@
 package main
 
 import (
-	pb "github.com/efrengarcial/shipper/user-service/proto/user"
+	pb "github.com/efrengarcial/shipper/user-service/proto/auth"
 	"github.com/jinzhu/gorm"
 )
 

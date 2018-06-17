@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
-	pb "github.com/efrengarcial/shipper/user-service/proto/user"
+	pb "github.com/efrengarcial/shipper/user-service/proto/auth"
 	"github.com/micro/go-micro"
 )
 
@@ -40,7 +40,7 @@ func main() {
 	srv.Init()
 
 	// Register handler
-	pb.RegisterUserServiceHandler(srv.Server(), &service{repo, tokenService})
+	pb.RegisterAuthHandler(srv.Server(), &service{repo, tokenService})
 
 	// Run the server
 	if err := srv.Run(); err != nil {

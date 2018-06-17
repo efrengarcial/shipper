@@ -1,6 +1,6 @@
 build:
 	protoc -I. --go_out=plugins=micro:$(GOPATH)/src/github.com/efrengarcial/shipper/user-service \
-		proto/user/user.proto
+		proto/auth/auth.proto
 	docker build -t user-service .
 
 run:
