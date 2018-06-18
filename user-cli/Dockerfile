@@ -4,9 +4,8 @@ WORKDIR /go/src/github.com/efrengarcial/shipper/user-cli
 
 COPY . .
 
-RUN go get -u github.com/golang/dep/cmd/dep
+RUN go get
 
-RUN dep init && dep ensure
 
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo .
 

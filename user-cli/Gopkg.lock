@@ -9,8 +9,8 @@
 [[projects]]
   branch = "master"
   name = "github.com/efrengarcial/shipper"
-  packages = ["user-service/proto/user"]
-  revision = "9b609d99c37dbf4fb80850df45c2141d2846f9c3"
+  packages = ["user-service/proto/auth"]
+  revision = "9847efcb1eb00b105d30a30c26594960a48cf598"
 
 [[projects]]
   name = "github.com/go-log/log"
@@ -80,6 +80,7 @@
 [[projects]]
   name = "github.com/micro/go-micro"
   packages = [
+    ".",
     "broker",
     "broker/codec",
     "broker/codec/json",
@@ -188,6 +189,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "7b2d2a12b647f49aaa944a1efaa4d73691ca38da92449b9c878e72304c675d5a"
+  inputs-digest = "322ab0e05eaeba9339050bec0025f33beeef8a548e13c9cc7658be1026fc5bfb"
   solver-name = "gps-cdcl"
   solver-version = 1

@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"io/ioutil"
 	"log"
 	"os"
@@ -9,6 +10,7 @@ import (
 	pb "github.com/efrengarcial/shipper/consignment-service/proto/consignment"
 	microclient "github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/cmd"
+	"github.com/micro/go-micro/metadata"
 	"golang.org/x/net/context"
 )
 
@@ -35,9 +37,16 @@ func main() {
 
 	// Contact the server and print out its response.
 	file := defaultFilename
-	if len(os.Args) > 1 {
-		file = os.Args[1]
+
+	var token string
+	log.Println(os.Args)
+
+	if len(os.Args) < 3 {
+		log.Fatal(errors.New("Not enough arguments, expecing file and token."))
 	}
+
+	file = os.Args[1]
+	token = os.Args[2]
 
 	consignment, err := parseFile(file)
 
@@ -45,13 +54,17 @@ func main() {
 		log.Fatalf("Could not parse file: %v", err)
 	}
 
-	r, err := client.CreateConsignment(context.TODO(), consignment)
+	ctx := metadata.NewContext(context.Background(), map[string]string{
+		"token": token,
+	})
+
+	r, err := client.CreateConsignment(ctx, consignment)
 	if err != nil {
 		log.Fatalf("Could not create: %v", err)
 	}
 	log.Printf("Created: %t", r.Created)
 
-	getAll, err := client.GetConsignments(context.Background(), &pb.GetRequest{})
+	getAll, err := client.GetConsignments(ctx, &pb.GetRequest{})
 	if err != nil {
 		log.Fatalf("Could not list consignments: %v", err)
 	}

@@ -4,25 +4,29 @@ import (
 	"log"
 	"os"
 
-	pb "github.com/efrengarcial/shipper/user-service/proto/user"
+	pb "github.com/efrengarcial/shipper/user-service/proto/auth"
+	"github.com/micro/go-micro"
 	microclient "github.com/micro/go-micro/client"
-	"github.com/micro/go-micro/cmd"
 	"golang.org/x/net/context"
 )
 
 func main() {
 
-	cmd.Init()
+	srv := micro.NewService(
 
-	// Create new greeter client
-	client := pb.NewUserServiceClient("go.micro.srv.user", microclient.DefaultClient)
+		micro.Name("go.micro.srv.user-cli"),
+		micro.Version("latest"),
+	)
+
+	// Init will parse the command line flags.
+	srv.Init()
+
+	client := pb.NewAuthClient("go.micro.srv.user", microclient.DefaultClient)
 
 	name := "Ewan Valentine"
 	email := "ewan.valentine89@gmail.com"
 	password := "test123"
 	company := "BBC"
-
-	log.Println(name, email, password)
 
 	r, err := client.Create(context.TODO(), &pb.User{
 		Name:     name,
