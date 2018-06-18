@@ -9,8 +9,11 @@
 [[projects]]
   branch = "master"
   name = "github.com/efrengarcial/shipper"
-  packages = ["vessel-service/proto/vessel"]
-  revision = "da40ff6f79d59cde4c745974412f71abf26a8a0b"
+  packages = [
+    "user-service/proto/auth",
+    "vessel-service/proto/vessel"
+  ]
+  revision = "9847efcb1eb00b105d30a30c26594960a48cf598"
 
 [[projects]]
   name = "github.com/go-log/log"
@@ -52,6 +55,18 @@
   name = "github.com/hashicorp/serf"
   packages = ["coordinate"]
   revision = "4b67f2c2b2bb5b748d934a6d48221062e43d2274"
+
+[[projects]]
+  name = "github.com/jinzhu/gorm"
+  packages = ["."]
+  revision = "6ed508ec6a4ecb3531899a69cbc746ccf65a4166"
+  version = "v1.9.1"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/jinzhu/inflection"
+  packages = ["."]
+  revision = "04140366298a54a039076d798123ffa108fff46c"
 
 [[projects]]
   branch = "master"
@@ -189,6 +204,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "3f4524ef2a23c6732ce85024129ce1887ae328962edb2e53c82cbb389feab5a0"
+  inputs-digest = "2368ab8a3771425f7e300ef0680dae71298315deefb4194b6018a59b736ebb87"
   solver-name = "gps-cdcl"
   solver-version = 1
