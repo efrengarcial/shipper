@@ -5,6 +5,7 @@ import (
 	"log"
 	pb "github.com/efrengarcial/shipper/user-service/proto/auth"
 	"github.com/micro/go-micro"
+	"time"
 )
 
 func main() {
@@ -34,13 +35,17 @@ func main() {
 		// This name must match the package name given in your protobuf definition
 		micro.Name("go.micro.srv.user"),
 		micro.Version("latest"),
+		micro.RegisterTTL(time.Second*30),
+		micro.RegisterInterval(time.Second*10),
 	)
 
 	// Init will parse the command line flags.
 	srv.Init()
 
+	publisher := micro.NewPublisher("user.created", srv.Client())
+
 	// Register handler
-	pb.RegisterAuthHandler(srv.Server(), &service{repo, tokenService})
+	pb.RegisterAuthHandler(srv.Server(), &service{repo, tokenService, publisher})
 
 	// Run the server
 	if err := srv.Run(); err != nil {

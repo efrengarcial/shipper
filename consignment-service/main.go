@@ -17,6 +17,7 @@ import (
 	"github.com/micro/go-micro/server"
 	"github.com/micro/go-micro/metadata"
 	"github.com/micro/go-micro/client"
+	"time"
 )
 
 const (
@@ -56,6 +57,8 @@ func main() {
 		// This name must match the package name given in your protobuf definition
 		micro.Name("go.micro.srv.consignment"),
 		micro.Version("latest"),
+		micro.RegisterTTL(time.Second*30),
+		micro.RegisterInterval(time.Second*10),
 		// Our auth middleware
 		micro.WrapHandler(AuthWrapper),
 	)

@@ -7,6 +7,7 @@ import (
 	pb "github.com/efrengarcial/shipper/vessel-service/proto/vessel"
 	"github.com/micro/go-micro"
 	"os"
+	"time"
 )
 
 
@@ -47,6 +48,8 @@ func main() {
 	srv := micro.NewService(
 		micro.Name("go.micro.srv.vessel"),
 		micro.Version("latest"),
+		micro.RegisterTTL(time.Second*30),
+		micro.RegisterInterval(time.Second*10),
 	)
 
 	srv.Init()

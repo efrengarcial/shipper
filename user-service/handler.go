@@ -8,6 +8,7 @@ import (
 	pb "github.com/efrengarcial/shipper/user-service/proto/auth"
 	"golang.org/x/crypto/bcrypt"
 	"golang.org/x/net/context"
+	"github.com/micro/go-micro"
 )
 
 const topic = "user.created"
@@ -15,6 +16,7 @@ const topic = "user.created"
 type service struct {
 	repo         Repository
 	tokenService Authable
+	Publisher    micro.Publisher
 }
 
 func (srv *service) Get(ctx context.Context, req *pb.User, res *pb.Response) error {
@@ -80,10 +82,10 @@ func (srv *service) Create(ctx context.Context, req *pb.User, res *pb.Response) 
 	res.User = req
 	res.Token = &pb.Token{Token: token}
 
-	/*
-		if err := srv.Publisher.Publish(ctx, req); err != nil {
-			return errors.New(fmt.Sprintf("error publishing event: %v", err))
-		}*/
+
+	if err := srv.Publisher.Publish(ctx, req); err != nil {
+		return errors.New(fmt.Sprintf("error publishing event: %v", err))
+	}
 
 	return nil
 }
